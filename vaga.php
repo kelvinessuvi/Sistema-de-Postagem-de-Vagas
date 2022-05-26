@@ -1,6 +1,11 @@
 <?php
      session_start();
 
+	 $titulo = $_GET['titulo'];
+	 $descricao = $_GET['descricao'];
+	 $experiencia = $_GET['experiencia'];
+	 $data = $_GET['data'];
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-PT">

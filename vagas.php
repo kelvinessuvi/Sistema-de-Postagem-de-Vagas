@@ -16,7 +16,7 @@
             $experiencia = $linha1['experiencia_requerida'];
             $data = $linha1['dataadd_vaga'];
 			$resultado .= "<li>
-									<a href='vaga.php?id=$id'>
+									<a href='vaga.php?id=$id&titulo=$titulo&descricao=$descricao&experiencia=$experiencia&data=$data'>
 										<div class='d-flex m-b30'>
 											<div class='job-post-company'>
 												<span><img src='images/logo/icon1.png'/></span>
