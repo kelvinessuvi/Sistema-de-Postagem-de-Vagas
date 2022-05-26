@@ -1,0 +1,102 @@
+
+
+.title{
+    position: relative !important;
+    bottom: 50px;
+    transition: all .3s linear !important;
+  
+}
+
+.perguntas-frequentes{
+    background-color: #222845;
+}
+.perguntas-frequentes div{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.perguntas-frequentes div p{
+    background-color: #171d36;
+    border-bottom: 2px solid #fff;
+    margin: 5px 0px;
+    padding: 10px;
+}
+
+.img-logo{
+    display: block;
+    max-width: 100%;
+    width: 100px !important;   
+}
+.user{
+    display: flex;
+    align-items: center;
+    background-color: #a01616;
+    border-radius: 20px;
+    padding: 10px 30px;
+}
+.user p{
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 0 !important;
+    margin-right: 10px !important;
+}
+.imagem_usuario{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.user i{
+    color: #fff;
+}
+
+.fullwidth .header-nav .nav > li.item-user{
+    padding: 0 !important;
+}
+
+
+
+.user-info{
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.user-imgaes img{
+    border-radius: 50%;
+}
+.user-imgaes h4{
+    color: #fff;
+}
+.user-imgaes p{
+    margin: -2px 0px;
+    color: #b8b5b5;
+}
+.user-info .user-text p{
+    color: #b8b5b5;
+}
+.item-redes img{
+    width: 40px;
+    height: 40px;
+}
+.item-editar{
+    margin-top: 10px;
+    height: 100% !important;
+}
+.item-editar img{
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+}
+
+
+
+
+
+
+/*========container-items========*/
+.container-items{
+    border: 1px solid #000;
+    margin: 50px auto;
+    padding: 20px 20px;
+}

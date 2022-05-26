@@ -1,0 +1,6 @@
+ {
+	 "name":"jose/vagasX"
+	 "autoload":{
+	     "psr-4"
+	 }
+ }
