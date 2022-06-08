@@ -17,7 +17,7 @@
     else{
       while($linha2 = mysqli_fetch_assoc($verifica)){
         $nome_usuario = $linha2['nome_usuario'];
-		$id_usuario = $linha2['id_usuario'];
+		$id_usuario = $linha2['idusuario'];
 		echo "<script>alert('BEM-VINDO');</script>";
       }
          

@@ -4,9 +4,12 @@
     require_once '../conexao.php';
     $nome_da_empresa = $_SESSION['nome_empresa'];
     $id_empresa = $_SESSION['id_empresa'];
+    $query3 = "SELECT * FROM candidatura WHERE vaga_empregador_idempregador = '$id_empresa'";
     $query2 = "select * from vaga where empregador_idempregador = '$id_empresa'";
+    $dados2 = mysqli_query($connection,$query3);
     $dados1 = mysqli_query($connection,$query2);
     $retorno_vagas = "";
+    $retorno_candidatos = "";
     if($dados1){
         $total1 = mysqli_num_rows($dados1);
         if($total1 > 0){          
@@ -24,6 +27,47 @@
                 <td>$data</td>
             </tr>
             
+            ";
+            }
+        }
+    }
+    if($dados2){
+        $total2 = mysqli_num_rows($dados2);
+        if($total2 > 0){          
+            while($linha2 = mysqli_fetch_assoc($dados2)){
+            $id_candidato = $linha2["id_candidatura"];
+            $id_vaga = $linha2['vaga_id_vaga'];
+            $id_usuario = $linha2["usuario_idusuario"];
+            $dataa = $linha2["dataadd_candidatura"];
+            $query = "SELECT * FROM usuario WHERE idusuario = '$id_usuario'";
+            $dados = mysqli_query($connection, $query);
+            if($dados){
+                $total = mysqli_num_rows($dados);
+                if($total > 0){
+                    while($linha = mysqli_fetch_assoc($dados)){
+                        $nome_usuario = $linha["nome_usuario"];
+                        $cv = $linha["cv"];
+                    }
+                }
+            }
+            $query4 = "SELECT * FROM vaga WHERE id_vaga = '$id_vaga'";
+            $dados4 = mysqli_query($connection, $query4);
+            if($dados4){
+                $total4 = mysqli_num_rows($dados4);
+                if($total4 > 0){
+                    while($linha4 = mysqli_fetch_assoc($dados4)){
+                        $titulovaga = $linha4["titulo_vaga"];
+                    }
+                }
+            }
+            $retorno_candidatos .= "
+            <tr>
+                <td>$id_candidato</td>
+                <td>$nome_usuario</td>
+                <td><a href='../uploads/$cv'>Abrir o CV</a></td>
+                <td>$titulovaga</td>
+                <td>$data</td>
+            </tr>
             ";
             }
         }
@@ -299,8 +343,29 @@
             <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
+
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h2 class="title-1 m-b-25">Candidatos</h2>
+                            <div class="table-responsive table--no-card m-b-40">
+                                <table class="table table-borderless table-striped table-earning">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>CV</th>
+                                            <th>Vaga</th>
+                                            <th>Data</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       <?=$retorno_candidatos?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     
-                        
+                    </div>
                         <div class="row">
                             <div class="col-lg-9">
                                 <h2 class="title-1 m-b-25">Vagas Publicadas</h2>
@@ -322,8 +387,10 @@
                             </div>
                         
                         </div>
+                        
                                 </div>
-                            </div>
+            </div>
+            
                         </div>
                         <div class="row">
                             <div class="col-md-12">

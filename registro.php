@@ -1,7 +1,7 @@
 <?php
 
 	require_once 'conexao.php';
-	if(isset($_POST['nome'])){
+	if(isset($_POST['nome']) || isset($_FILES['curriculo'])){
 		$nome = $_POST['nome'];
 		$email = $_POST['email'];
 		$telemovel = $_POST['telemovel'];
@@ -10,11 +10,29 @@
 		$senha = $_POST['senha'];
 		$datanasc = $_POST['dtnascimento'];
 		$datadd = date('Y-m-d H-i-s');
-		$cv ="";
+		$cv = $_FILES['curriculo'];
+		$cvfile = strval($cv["name"]);
 		$pdo = new PDO('mysql:host='.$host.';dbname='.$name,$user,$pass);
 		$sql = "INSERT INTO usuario (nome_usuario,email_usuario,telefone_usuario,senha,morada_usuario,sexo_usuario,datanasc_usuario,dataadd_usuario,cv) values (?,?,?,?,?,?,?,?,?)";
 		$stmt = $pdo->prepare($sql);
-		$stmt->execute([$nome,$email,$telemovel,$senha,$morada,$sexo,$datanasc,$datadd,$cv]);
+		$stmt->execute([$nome,$email,$telemovel,$senha,$morada,$sexo,$datanasc,$datadd,$cvfile]);
+		$files = $_FILES['curriculo'];
+		echo "<script>alert('A sua conta foi criada com sucesso!');
+		window.location.href='login.php';
+		</script>";
+		if($files['error']){
+			throw new Exception("Error: ".$files["error"]);
+		}
+		$dirUpload = "uploads";
+		if(!is_dir($dirUpload)){
+			mkdir($dirUpload);
+		}
+		if(move_uploaded_file($files["tmp_name"], $dirUpload . DIRECTORY_SEPARATOR . $files["name"])){}
+		else{
+			throw new Exception("Não foi possível realizar o upload do arquivo selecionado.");
+		}
+		exit;
+	
 	}
 
 ?>
@@ -118,7 +136,7 @@
 					<div class="col-md-12 m-b30">
 						<div class="p-a30 border-1  max-w500 m-auto">
 							<div class="tab-content">
-								<form method="POST" id="login" class="tab-pane active">
+								<form method="POST" id="login" enctype="multipart/form-data" class="tab-pane active">
 									<h4 class="font-weight-700">INFORMAÇÃO PESSOAL</h4>
 									<p class="font-weight-600">Se você tem uma conta conosco, por favor faça o login .</p>
 									<div class="form-group">
@@ -146,11 +164,15 @@
 									</div>
 									<div class="form-group">
 										<label class="font-weight-700">E-MAIL *</label>
-										<input name="email" required="" class="form-control" placeholder="Seu Email " type="email">
+										<input name="email" required class="form-control" placeholder="Seu Email " type="email">
 									</div>
 									<div class="form-group">
 										<label class="font-weight-700">SENHA *</label>
-										<input name="senha" required="" class="form-control " placeholder="Digite a Senha" type="password">
+										<input name="senha" required class="form-control " placeholder="Digite a Senha" type="password">
+									</div>
+									<div class="form-group">
+										<label class="font-weight-700">Curriculo</label>
+										<input class="form-control" name="curriculo" type="file">
 									</div>
 									<div class="text-left">
 										<button class="site-button button-lg outline outline-2">CRIAR</button>
