@@ -22,29 +22,28 @@
 	}
 	if(isset($_POST['candidatar'])){
 		$userr = $_SESSION['id_usuario'];
-		$query1 = "select * from candidatura WHERE usuario_idusuario='$user'";
+		$query1 = "select * from candidatura WHERE usuario_idusuario=$userr";
     	$dados2 = mysqli_query($connection,$query1);
 		if($dados2){
 			$total1 = mysqli_num_rows($dados2);
 			if($total1 > 0){
 				echo "
 				<script>
-					alert('Você já se candidatou a esta vaga.');
-					window.location.href='vaga.php';
+					alert('Não é possível se candidatar a esta vaga, você já se candidatou nela.');
 				</script>
 				";
 			}
-		}
-		else{
-			$vaga = $_POST['vaga'];
-			$empresa = $_POST['idempresa'];
-			$estado = "ENVIADA";
-			$dataa = date("Y-m-d H:i:s");
-			$pdo = new PDO('mysql:host='.$host.';dbname='.$name,$user,$pass);
-			$sql = "INSERT INTO candidatura (dataadd_candidatura,estado_candidatura,usuario_idusuario,vaga_id_vaga,vaga_empregador_idempregador) values (?,?,?,?,?)";
-			$stmt = $pdo->prepare($sql);
-			$stmt->execute([$dataa,$estado,$userr,$vaga,$empresa]);
-			echo "<script>alert('A sua candidatura foi enviada com sucesso!Aguarde pelo contacto de empresa.')</script>";
+			else{
+				$vaga = $_POST['vaga'];
+				$empresa = $_POST['idempresa'];
+				$estado = "ENVIADA";
+				$dataa = date("Y-m-d H:i:s");
+				$pdo = new PDO('mysql:host='.$host.';dbname='.$name,$user,$pass);
+				$sql = "INSERT INTO candidatura (dataadd_candidatura,estado_candidatura,usuario_idusuario,vaga_id_vaga,vaga_empregador_idempregador) values (?,?,?,?,?)";
+				$stmt = $pdo->prepare($sql);
+				$stmt->execute([$dataa,$estado,$userr,$vaga,$empresa]);
+				echo "<script>alert('A sua candidatura foi enviada com sucesso!Aguarde pelo contacto de empresa.')</script>";
+			}
 		}
 	}	
 
