@@ -22,7 +22,7 @@
 	}
 	if(isset($_POST['candidatar'])){
 		$userr = $_SESSION['id_usuario'];
-		$query1 = "select * from candidatura WHERE usuario_idusuario=$user";
+		$query1 = "select * from candidatura WHERE usuario_idusuario='$user'";
     	$dados2 = mysqli_query($connection,$query1);
 		if($dados2){
 			$total1 = mysqli_num_rows($dados2);
