@@ -17,7 +17,7 @@
 		if($total > 0){
 			while($linha = mysqli_fetch_assoc($dados1)){
 				$morada = $linha['morada_empresa'];
-			}
+			}--
 		}
 	}
 	if(isset($_POST['candidatar'])){
