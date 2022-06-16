@@ -32,7 +32,6 @@
 			throw new Exception("Não foi possível realizar o upload do arquivo selecionado.");
 		}
 		exit;
-	
 	}
 
 ?>
